@@ -144,3 +144,98 @@ Once we have extimated the trend, we calculate the residual:
 
 - This is also a linear filter with $b_0 = 1 - a_0$ and $b_r = -a_r$ for $r\neq0$.
 - If $\sum a_r = 1$ then $\sum b_r = 0$
+
+##### *Filter in Series*
+
+![filter in sereis](Images/filter-in-series.png)
+
+A smoothing procedure can be carried out in two or more stages.
+
+It is easy to show that a series of linear operations is still a linear filter:
+
+Suppose filter 1, with weights $\{a_r\}$, acts on $\{x_t\}$ to produce $\{y_t\}$ Then filter 2 with weights  $\{b_r\}$ acts on  $\{y_t\}$ to produce  $\{z_t\}$. Now,
+
+\[ \begin{aligned}
+z_t &= \sum_j b_j \ y_{t+j} \\
+    &= \sum_j b_j \ \sum_r a_r \ x_{t+j+r} \\
+    &= \sum_k c_k \ x_{t+k}
+\end{aligned}\]
+
+where $$ c_k = \sum_r a_r \ b_{k-r} $$
+
+Note that $c_k$ is obtained by **convolution**.
+
+#### *1.4.3 $~$ Differencing*
+
+- A special type of filtering, particularly useful for removing a trend.
+
+- For non-seasonal time series, first order is usually sufficient to obtain stationary series.
+
+For a given time series $\{x_t\}, t \in [N]$, we can obatin a new sereis $\{y_2, ..., y_N\}$ by **first order differencing**:
+
+$$\nabla x_t  = y_t = x_t - x_{t-1} \ \ \text{for}\  t = 2,...,N$$
+
+Occationally **second order differencing** will be used
+
+$$\nabla^2 x_t  = \nabla x_t - \nabla x_{t-1}  = x_t - 2\ x_{t-1} + x_{t-2}$$
+
+
+### 1.4 $~$ Analyzing Series WITH Trend and Seasonal Variations
+
+Three commonly used seasonal model:
+
+\[\begin{aligned}
+&A \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ X_t = m_t + S_t + \epsilon_t \\
+&B \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ X_t = m_t \ S_t + \epsilon_t\\
+&C \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ X_t = m_t \ S_t \ \epsilon_t\\
+\end{aligned} \]
+
+- $m_t$ is the deseasonalized mean level at time $t$
+- $S_t$ is the seasonal effect at time $t$
+- $\epsilon_t$ is the random error
+
+Note: model C is easy to handel with a logarithm tranformation (to a linear model)
+
+The analysis of time series, which exhibit seasonal variation, depends on whether one wants to:
+1. measure the seasonal effect and/or
+2. eliminate seasonality.
+
+**For series showing little trend**, it is usually adequate to estimaten the seasonal effect for a particular period (e.g. January) by
+- the average of each January observation $-$ the corresponding yearly average in the additive case;
+- the January observation $/$ the yearly average in the multiplicative case.
+
+**For time series containing a substantial trend**:
+
+- If monthly data, we use this to eliminate seasonal effect
+$$Sm(x_t) = \frac{\frac{1}{2}x_{t-6} +x_{t-5}+x_{t-4}+...+x_{t-4}+x_{t-5}+x_{t+6}}{12}$$
+
+  Note that: Simple MA of 12 months cannot be used, would not be centered at an interger $t$. Simple MA of 13 months cannot be used, end points' weights are counted twice
+
+
+- If quarterly data, we use this to eliminate seasonal effects
+$$ Sm(x_t) = \frac{\frac{1}{2}x_{t-2}+x_{t-1}+x_{t}+x_{t+1}+\frac{1}{2} x_{t+2}}{4}$$
+
+- For 4-weekly data, can use simple MA over 13 successive observation
+
+All these procedure will estimate local (deseasonalized) Series.
+
+The seasonal effect itself  = $~~$ $x_t - Sm(x_t)$  $~~$ or  $~~$ $x_t / Sm(x_t) $ $~~$ depending on the model.
+
+**decoposition example**
+
+** see jupyter notebook **
+
+![time series decompose](Images/decomposition.png)
+
+**Seasonal Differencing**
+
+e.g. for monthly data we can use
+
+$$\nabla_{12} x_t  = x_t - x_{t-12} $$
+
+#### *1.5.1 $~$ X-11 method / X-12 method*
+
+- widely used for removing or estimating both trend and seasonal effects
+- employs a series of linear filters and adopts a reccursive approach.
+- is able to deal with the **Calender Effect**
+- can be used with ARIMA, avoiding end-effect problems
