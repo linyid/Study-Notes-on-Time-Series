@@ -44,7 +44,7 @@
 
 ### 1.3 $~$ Transformations
 
-####*1. To stablize the variance*
+#### *1. To stablize the variance*
 
 Suggested if: (1) there is a trend; (2) variance is increasing with the mean
 
@@ -52,7 +52,7 @@ Suggested if: (1) there is a trend; (2) variance is increasing with the mean
 
 - If the variance changes through time without a trend being present, then a transformation will not help. In such cases, a model that allows for changing variance should be considered.
 
-####*2. To make the seasonal effect additive*
+#### *2. To make the seasonal effect additive*
 
 Suggested if: (1) there is a trend; (2) seasonal effect is increasing with mean
 
@@ -64,7 +64,7 @@ Suggested if: (1) there is a trend; (2) seasonal effect is increasing with mean
 
 - However, this transform will only stablize the variance if error term is also thought to be multiplicative (see later)
 
-####*3. To make the data normally distributed*
+#### *3. To make the data normally distributed*
 
 - Model building and forecasting are usually carried out on the assumption
 that the data are normally distributed.
@@ -75,11 +75,11 @@ that the data are normally distributed.
 
 logarithm and square-root are special cases of BOX-COX. Given a time series $\{x_t\}$ and a transformation parameter $\lambda$, the transformed series is given by:
 
-\[
+$$
    y_t= \begin{cases}
         (x_t^\lambda-1)/\lambda, & \text{if}\ \lambda \neq 0\\
         log \ x_t, & \text{if}\ \lambda = 0 \end{cases}
-\]
+$$
 
 **Problems in practice:**
 
@@ -93,9 +93,9 @@ logarithm and square-root are special cases of BOX-COX. Given a time series $\{x
 
 Simplest type of trend, 'linear model + noise': an observaton at time $t$ is a random variable $X_t$
 
-\[
+$$
 X_t = \alpha + \beta \ t + \epsilon \tag{1.1}
-\]
+$$
 
 - (1.1) is a deterministic function of time and is sometimes called **global** linear trend, and is generally not practical.
 
@@ -115,10 +115,10 @@ X_t = \alpha + \beta \ t + \epsilon \tag{1.1}
 
 Basic Formula:
 
-\[
+$$
 y_t = \sum^{+s}_{r = -q} a_r x_{t+r} \\
 s.t.  \sum a_r = 1
-\]
+$$
 
 - Simplest example: $Sm(x) = \frac{1}{2q+1}\sum_{r = -q}^{q} x_{t+r} $. Help to removing seasonal variation.
 - **Symmetric coefficient**: $(\frac{1}{2} + \frac{1}{2})^{2q}$. When q gets large, approximates to normal curve.
@@ -136,11 +136,11 @@ $$Sm(x) = \sum^\infty_{j=0} \alpha(1-\alpha)^j \  x_{t-j} $$
 
 Once we have extimated the trend, we calculate the residual:
 
-\[ \begin{aligned}
+$$ \begin{aligned}
   Res(x_t) &= \text{residual from smmothed value} \\
    &= x_t - Sm(x_t) \\
   &= \sum^{s}_{r=-q} b_r \ x_{t+r}
-\end{aligned}\]
+\end{aligned}$$
 
 - This is also a linear filter with $b_0 = 1 - a_0$ and $b_r = -a_r$ for $r\neq0$.
 - If $\sum a_r = 1$ then $\sum b_r = 0$
@@ -155,11 +155,11 @@ It is easy to show that a series of linear operations is still a linear filter:
 
 Suppose filter 1, with weights $\{a_r\}$, acts on $\{x_t\}$ to produce $\{y_t\}$ Then filter 2 with weights  $\{b_r\}$ acts on  $\{y_t\}$ to produce  $\{z_t\}$. Now,
 
-\[ \begin{aligned}
+$$ \begin{aligned}
 z_t &= \sum_j b_j \ y_{t+j} \\
     &= \sum_j b_j \ \sum_r a_r \ x_{t+j+r} \\
     &= \sum_k c_k \ x_{t+k}
-\end{aligned}\]
+\end{aligned}$$
 
 where $$ c_k = \sum_r a_r \ b_{k-r} $$
 
@@ -184,11 +184,11 @@ $$\nabla^2 x_t  = \nabla x_t - \nabla x_{t-1}  = x_t - 2\ x_{t-1} + x_{t-2}$$
 
 Three commonly used seasonal model:
 
-\[\begin{aligned}
+$$\begin{aligned}
 &A \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ X_t = m_t + S_t + \epsilon_t \\
 &B \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ X_t = m_t \ S_t + \epsilon_t\\
 &C \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ X_t = m_t \ S_t \ \epsilon_t\\
-\end{aligned} \]
+\end{aligned} $$
 
 - $m_t$ is the deseasonalized mean level at time $t$
 - $S_t$ is the seasonal effect at time $t$
