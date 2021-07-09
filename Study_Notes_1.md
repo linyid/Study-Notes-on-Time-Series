@@ -239,3 +239,93 @@ $$\nabla_{12} x_t  = x_t - x_{t-12} $$
 - employs a series of linear filters and adopts a reccursive approach.
 - is able to deal with the **Calender Effect**
 - can be used with ARIMA, avoiding end-effect problems
+
+
+### 1.4 $~$ Autocorrelation and Correlogram
+
+**Sample Correlation Coefficient:** Given $N$ pairs of observations on two variables $x$ and $y$, $\{(x_1, y_1), ..., (x_N, y_N) \}$, sample correlation coefficient is given by
+
+$$ r = \frac{\sum_{i=1}^N (x_i - \bar x)(y_i - \bar y)}{\sqrt{\sum_{i=1}^N (x_i - \bar x)^2 \sum_{i=1}^N (y_i - \bar y)^2}} \tag{1.2}$$
+
+Notes:
+- $r \in [-1, 1]$
+- $r$ measures the strength of the linear association between the two variables
+- if the two variables are independent, then $r=0$.
+
+We extend this definition into time series data, to measure whether successive data are correlated.
+
+**Sample Autocorrelation Coefficient:** Given $N$ observation on the time series, form $N-1$ pairs of observation $(x_1, x_2), (x_2, x_3), ..., (x_{N-1}, x_N)$, where each pair of observation is seperated by 1 time interval. Sample Autocorrelation Coefficient is given by
+
+$$ r_1 = \frac{\sum_{t=1}^{N-1} (x_t - \bar x_{(1)})(x_{t+1} - \bar x_{(2)})}{\sqrt{\sum_{t=1}^{N-1} (x_t - \bar x_{(1)})^2 \sum_{t=1}^{N-1} (x_{t+1} - \bar x_{(2)})^2}} \tag{1.3}$$
+
+where $\bar x_{(1)} = \sum_{t=1}^{N-1} x_t / (N-1)$ is the first $N-1$ observations, and $\bar x_{(2)} = \sum_{t=2}^{N} x_t / (N-1)$ is the last $N-1$ observations.
+
+Notes:
+
+- $r_1$ measures the correlation between adjacent observations $x_{t-1}$ and $x_t$.
+- Since $\bar x_{(1)} \simeq \bar x_{(2)}$, (1.3) can be approximated by
+$$ r_1 = \frac{\sum_{t=1}^{N-1} (x_t - \bar x)(x_{t+1} - \bar x)}{(N-1) \sum^N_{t=1} (x_t - \bar x)^2 /N} \tag{1.4}$$
+
+  where $\bar x = \sum^N_{t = 1} x_t / N$
+
+- for large $N$ we can drop $(N-1)/N$ in (1.4) and further approximate $r_1$ as
+$$ r_1 = \frac{\sum_{t=1}^{N-1} (x_t - \bar x)(x_{t+1} - \bar x)}{\sum^N_{t=1} (x_t - \bar x)^2 } \tag{1.5}$$
+
+Similarly, we define **sample correlation correlation at lag k**:
+
+$$ r_k = \frac{\sum_{t=1}^{N-k} (x_t - \bar x)(x_{t+k} - \bar x)}{\sum^N_{t=1} (x_t - \bar x)^2 }, \ k = 1,2,3,... \tag{1.6}$$
+
+Notes:
+
+- $r_k \in [-1,1]$, and $r_0 = 1$
+- In practice autocorrelation coefficents are usually calculated by **sample autocovariance coefficient at lag k**:
+$$ c_k = \frac{1}{N} \sum_{t=1}^{N-k} (x_t - \bar x)(x_{t+k} - \bar x)$$
+
+  and then $r_k = c_k / c_0$
+
+#### *1.4.1 $~$ The Correlogram*
+
+**Correlogram:** a plot in which Sample Autocorrelation Coefficient is plotted against lag $k$, for $k$ from $0$ to $M$.
+
+- usually $M \ll N$. e.g. if $N=200$, then $M = 20, 30$
+- more examples in the next subsection
+- if referred to **ACF** (autocorrelation function) sometimes
+
+#### *1.4.2 $~$ Interpreting the correlogram*
+
+##### *Random Series*
+
+A time series is completely random (or i.i.d) if it consists of a series of observations that have the same distribution.
+
+- for large $N$, we expect that $r_k \simeq 0$ for positive $k$.
+- $r_k, \ k \ge 0$ is approximately $\mathcal{N}(0, 1/N)$
+  $~~$ $\Rightarrow r_k \in [-1.96/\sqrt{N}, +1.96/\sqrt{N}] $ $~~$
+- But one would expect to find one $r_k$ out of this range ('significant') if e.g. $N = 20$
+
+![Random Seres](Images/random_series.png)
+
+##### *Short-term correlation*
+
+Short-term correlation is characterized by a farily large value of $r_k$ followed by one or two further large but smaller (while greater than zero) coefficients. $r_k$ for larger $k$ will tend to be zero.
+
+![](Images/short-term.png)
+
+##### *Alternating Series*
+
+If a time series has a tendency to alternate, with successive observations on
+different sides of the overall mean, then the correlogram also tends to alternate.
+
+- $r_1$ will natually be negative, while $r_2$ will be positive (observation with lag 2 will tend to be on the same side of the mean)
+
+![](Images/alternating.png)
+
+##### *Non-stationary Series*
+
+If a time series has trend, then $r_k$ will tend to be large except for vary large $k$.
+
+- successive observations will be on the same side of the mean due to existence of trends
+- little can be inferred from this type of ACF.
+- a sample ACF is $\{r_k\}$ is only meaningful if the time series is **stationary**. (Any trend should be removed before calculating $r_k$)
+- if the trend is the main interest, it should be modelled rather than removed. In such case correlogram is not helpful.
+
+![](Images/non-stationary.png)
