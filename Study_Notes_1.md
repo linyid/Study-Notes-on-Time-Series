@@ -329,3 +329,13 @@ If a time series has trend, then $r_k$ will tend to be large except for vary lar
 - if the trend is the main interest, it should be modelled rather than removed. In such case correlogram is not helpful.
 
 ![](Images/non-stationary.png)
+
+##### *Seasonal Series*
+
+If a time series contains a seasonal variation, then the correlogram will also exhibit an occilation at the same frequecy. In particular if $x_t$ follows a sinusoidal pattern, then so does $r_k$. It can be shown that:
+
+$$ x_t  = a \ cos\ t\omega  \ \  \Rightarrow \ \  r_k \simeq cos\ k\omega$$
+
+for large $N$. Where $a$ is a constant and $0 < \omega < \pi$ is frequency.
+
+![](Images/seasonal.png)
