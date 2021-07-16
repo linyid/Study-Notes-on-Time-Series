@@ -153,6 +153,7 @@ where $\{\beta_i \}$ are constants.
 Note:
 
 - The $Z$s are usually scaled so that $\beta_0 = 1$.
+- An arbitrary constant, $\mu$, may be added to the right-hand side of (2.3) to give a process with mean $\mu$. This does not affect the ac.f.!
 
 #### *2.6.1 $~$ Stationarity and autocorrelation funtion of an MA process*
 
@@ -213,5 +214,89 @@ Examples of MA(1) and MA(2) are displayed below respectively.
 
 Consider the following first order MA precesses:
 
-$$\begin{aligned}\text{A: $~~~~~~~~~~~$}  & Z_t \\
-\text{B: $~~~~~~~~~~~$} & Z_t \end{aligned}$$
+$$\begin{aligned}\text{A: $~~~~~~~~~~~$}  & X_t = X_t + \theta Z_{t-1} \\
+\text{B: $~~~~~~~~~~~$} & X_t =  Z_t +\frac{1}{\theta} Z_{t-1} \end{aligned}$$
+
+It can be easily shown that the two different process have the same $\rho(k)$. Thus we cannot identify an MA process uniquely from a given ac.f.
+
+Now we 'invert' A and B: expressing $Z_t$ in terms of $X_t, X_{t-1}, ...$, we have (by successive substitution)
+
+
+$$\begin{aligned}\text{A: $~~~~~~~~~~~$}  & Z_t = X_t - \theta X_{t-1} + \theta^2 X_{t-2} - ...\\
+\text{B: $~~~~~~~~~~~$} & Z_t =  X_t -\frac{1}{\theta} X_{t-1} + \frac{1}{\theta^2} X_{t-2} - ...\end{aligned}$$
+
+If $|\theta| <1$, the sereis of coefficients of $X_{t-j}$ for model A converges whereas that of B does not. Thus model B cannot be 'inverted' in this way.
+
+***Definition.*** $~$ A process, $\{X_t\}$, is said to be **invertible** if the random disturbance at time $t$, sometimes caled the *innovation*, canbe expressed as a convergent sum of present and past values of $X_t$ in the form
+
+$$ Z_t = \sum^\infty_{j=0} \pi_j X_{t-j}$$
+
+where $\sum |\pi_j| < \infty$.
+
+Note:
+
+- This definition effectly means that the first-order MA process can be rewritten in the form of an autocoregressive process (possibly finite order) whose coefficient form a convergent sum.
+
+
+### 2.7 $~$ Autoregressive Processes
+
+***Definition.*** $~$ Suppose that $\{Z_t\}$ is a purely random process with mean zero and variance $\sigma^2_Z$. Then a process $\{X_t\}$ is said to be an **Autoregressive Process of order $p$** (AR($p$)) if
+
+$$ X_t = \alpha_1 X_{t-1} + .. + \alpha_p X_{t-p} + Z_t \tag{2.5}$$
+
+#### *3.7.1 $~$ First-order process*
+
+First order process (a.k.a **Markov Process**): $p=1$, we have
+
+$$X_t = \alpha X_{t-1} + Z_t \tag{2.6}$$
+
+By successive substitution into Equation (2.6) we have
+
+$$ \begin{aligned} X_t &= \alpha (\alpha X_{t-2} + Z_{t-1}) + Z_t \\
+                       &= \alpha^2 (\alpha X_{t-3} + Z_{t-2}) + \alpha Z_{t-1} + Z_t
+\end{aligned}$$
+
+And eventually $X_t$ may be expressed as a infinite-order MA process in the form
+
+$$X_t = Z_t + \alpha Z_{t-1} + \alpha Z_{t-2} + ...$$
+
+proveded $-1 < \alpha < +1$ so that the sum converges.
+
+It is clear that
+
+$$ E(X_t) = 0 \\
+Var(X_t) = \sigma^2_Z (1 + \alpha^2 + \alpha^4 + ...)$$
+
+The variance is finite provided that $|\alpha|^2 < 1$. So if $|\alpha|<1$, we have
+
+$$Var(X_t) = \sigma^2_X = \sigma^2_Z / (1-\alpha^2) $$
+
+Now, the acv.f. is given by
+
+$$\begin{aligned}
+\gamma(k) &= E[X_t X_{t+k}]\\
+          &= E[(\sum \alpha^i Z_{t-i})(\sum \alpha^j Z_{t+k-j})]\\
+          &= \sigma^2_Z \sum^\infty_{i=0} \alpha^i \alpha^{k+i}  & \text{for } k>=0\\
+          &= \alpha^k \sigma_Z^2 / (1-\alpha^2) & \text{provided } |\alpha| < 1 \\
+          &= \alpha^k \sigma_X^2
+\end{aligned}$$
+
+Since $\gamma(k)$ does not depend on $t$, an AR process of order 1 is second-order stationary provided that $|\alpha| < 1$, and ac.f. is given by
+
+$$ \rho(k) = \alpha^k \ \ \ \ \ k=0, 1, 2,... $$
+
+And to get an even function defined for all integer $k$, we can use
+
+$$ \rho(k) = \alpha^{|k|} \ \ \ \ \ \ k = 0, \pm 1, \pm 2,...$$
+
+Note: We can prove that
+Second order stationary $\iff |\alpha| < 1$ . And strict inequality is important.
+
+Below are three examples of the ac.f. of first-order AR process with $\alpha = 0.8, -0.8, 0.3$ respectively.
+
+![AR(1)](Images/AR(1).png)
+
+Note:
+
+- The ac.f. decays quickly when $\alpha = 0.3$
+- The ac.f. alternates when $\alpha = -0.8$
