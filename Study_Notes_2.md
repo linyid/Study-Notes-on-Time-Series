@@ -113,3 +113,105 @@ Notes:
 Notes:
 - We know that a given stochastic process has a unique covariance structure, but the converse is not in general true.
 - We will see that, a requirement called the invertibility condition is needed to ensure uniquess in both directions.
+
+
+### 2.4 $~$ Purely Random Processes
+
+***Definition.*** $~$ A discrete-time process is called **a purely random proecess** (a.k.a **white noise**) if it consists of a sequence of random variables, $\{ Z_t\}$, which are mutually *independent and identically distributed* (i.i.d).
+
+Note:
+
+- Normally, further assume that they are normally distributed with mean 0 and variance $\sigma^2_Z$.
+- The definitionn implies that the process has constant mean and variance.
+- Independence assumption means
+$$
+\gamma(k) = Cov(Z_t, Z_{t+k}) = \begin{cases} \sigma^2_Z \ \ \ k=0 \\
+0 \ \ \ \ \  k = \pm 1, \pm 2, ...
+\end{cases} \tag{2.1}$$
+
+  $$\Rightarrow \rho(k) = \begin{cases}1 \  \ \ \ \ k=0 \\
+      0 \ \ \ \ \ k = \pm1, \pm 2, ...  \end{cases} \tag{2.2}$$
+
+- Mean and acv.f. do not depend on time $\ \Rightarrow $ the process is second-order stationary
+- independence assumption $\ \Rightarrow$ the process is also strictly stationary.
+
+If all sample ac.f.'s of a series are close to zero (in the correlogram), then the series is considered as a purely random process
+
+### 2.5 $~$ Random Walks
+
+** for future updates **
+
+
+### 2.6 $~$ Moving Average Processes
+
+***Definition.*** $~$ Suppose that $\{Z_t\}$ is a purely random process with mean zero and variance $\sigma^2_Z$. Then a process $\{Z_t\}$ is said to be **a moving average process of order $q$** (MA(q) process) if
+
+$$ X_t = \beta_0 Z_t + \beta_1 Z_{t-1} + ... + \beta_q Z_{t-q} \tag{2.3}$$
+
+where $\{\beta_i \}$ are constants.
+
+Note:
+
+- The $Z$s are usually scaled so that $\beta_0 = 1$.
+
+#### *2.6.1 $~$ Stationarity and autocorrelation funtion of an MA process*
+
+Since $Z$s are independent, we have
+
+$$ E(X_t) = 0, \\ Var(X_t) = \sigma^2_Z \sum_{i=0}^q \beta_i^2 $$
+
+Try to calculate the ac.f. to interprete what correlogram looks like:
+
+We have
+
+$$ \begin{aligned}
+\gamma &= Cov(X_t, \ X_{t+k}) \\
+       &= Cov(\beta_0 Z_t + ... + \beta_q Z_{t-q}, \ \beta_0 Z_{t+k} + ... + \beta_q Z_{t+k-q}) \\
+       &= \begin{cases} 0  &  k > q \\
+                        \sigma^2_Z \sum_{i=0}^{q-k} \beta_i \beta_{i+k} & k = 0,1,...,q \\
+                        \gamma(-k)  &  k<0
+        \end{cases} \tag{2.4}
+\end{aligned} $$
+
+Since
+
+$$Cov(Z_s, \ Z_t) = \begin{cases} \sigma_Z^2 & s=t \\
+                                  0 & s\neq t \end{cases}$$
+
+Note:
+
+- $\gamma(k)$ does not depend on $t$, and the mean is constant $\Rightarrow$ the process is second order stationary for all values of the $\{\beta_i\}$
+- if $Z$s are normally distributed, then so are the $X$s, and we have strictly stationary normal process.
+
+Now, the ac.f. of the above MA($q$) process is given by
+
+$$
+\rho(k) = \begin{cases} 1 & k=0 \\
+\sum_{i=0}^{q-k} \beta_i \beta_{i+k} / \sum_{i=0}^q \beta_i^2 & k =1,...,q \\
+0 & k>q
+\end{cases}
+$$
+
+Note:
+- The ac.f. 'cuts off' at lag $q$, a special feature of MA Processes
+- In particular, the MA(1) process with $\beta_0 = 1$ has ac.f. given by
+
+$$
+\rho(k) = \begin{cases} 1 & k=0 \\
+\beta_1/(1+\beta_1^2) & k = \pm 1\\
+0 & \text{otherwise.}
+\end{cases}
+$$
+
+Examples of MA(1) and MA(2) are displayed below respectively.
+
+![MA Examples](Images/MA.png)
+
+#### *2.6.1 $~$ Intertibility of MA Processes*
+
+*Property 3* in Section 2.3 says that we cannot identify a MA process uniquely from a given ac.f. But it is desirable to impose restrictions on the $\{\beta_i\}$ to ensure that the process satisfies a condition called **invertibility**. **It ensures that there is a unique invertible first-order MA process for a given ac.f.**
+
+Consider the following first order MA precesses:
+
+$$\begin{aligned}\text{A: $~~~~~~~~~~~$}  & Z_t \\
+\text{B: $~~~~~~~~~~~$} & Z_t \end{aligned}$$

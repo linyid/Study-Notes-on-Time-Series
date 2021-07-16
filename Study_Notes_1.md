@@ -4,7 +4,7 @@
 
 ### 1.1 $~$ Types of Variations
 
-*Seasonal Variations*
+***Seasonal Variations***
 
 - annual in period
 
@@ -14,13 +14,13 @@
 
 - can be removed from the data if not directly interested
 
-*Other Cyclic Variations*
+***Other Cyclic Variations***
 
 - variatons at fixed period $~~~$ e.g. daily temperature
 
 - variation not at fixed period, but still predictable $~~~$ e.g. business cycles of 3 to 4 years or more than 10 years
 
-*Trend*
+***Trend***
 
 - 'long term change in the mean level'
 
@@ -28,7 +28,7 @@
 
 - e.g. climate variables: data of 50 years we may see a cyclic variation; while data of 20 years we may only see a trend
 
-*Other irregular fluctuation (Residual)*
+***Other irregular fluctuation (Residual)***
 
 - after trends and cyclic variations are removed from the data, we will observe the residual that may or may not be 'random'
 
@@ -38,7 +38,7 @@
 
 ### 1.2 $~$ Stationary Time Series
 
-**Stationary:** A time series is stationary if there is no systematic change in mean (no trend, if there is no systematic change in variance and if stricly periodic variations has been removed.
+**Stationary:** A time series is stationary if there is no systematic change in mean (no trend), if there is no systematic change in variance and if stricly periodic variations has been removed.
 
 - Many theories are concerned with stationary time series. So **transform** to statsionary if neccessary.
 
