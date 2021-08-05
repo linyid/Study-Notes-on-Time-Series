@@ -278,7 +278,7 @@ $$\begin{aligned}
           &= E[(\sum \alpha^i Z_{t-i})(\sum \alpha^j Z_{t+k-j})]\\
           &= \sigma^2_Z \sum^\infty_{i=0} \alpha^i \alpha^{k+i}  & \text{for } k>=0\\
           &= \alpha^k \sigma_Z^2 / (1-\alpha^2) & \text{provided } |\alpha| < 1 \\
-          &= \alpha^k \sigma_X^2
+          &= \alpha^k \sigma_X^2s
 \end{aligned}$$
 
 Since $\gamma(k)$ does not depend on $t$, an AR process of order 1 is second-order stationary provided that $|\alpha| < 1$, and ac.f. is given by
